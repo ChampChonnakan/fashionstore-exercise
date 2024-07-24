@@ -6,7 +6,7 @@ type Props = {
   onClick: () => void;
 };
 
-export default function Product({ product, onClick }: Props) {
+const Product = ({ product, onClick }: Props) => {
   return (
     <div className="group relative" data-testid="product-item" role="listitem">
       <div className="pw-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
@@ -45,4 +45,6 @@ export default function Product({ product, onClick }: Props) {
       </div>
     </div>
   );
-}
+};
+
+export default Product;
