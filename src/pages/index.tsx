@@ -55,15 +55,33 @@ export default function Home() {
   };
 
   useEffect(() => {
+    let isOutdated = false;
+    console.log("fetch products");
     setIsLoading(true);
     fetchProducts(selectedCategory).then((productsResult) => {
-      setIsLoading(false);
-      setProducts(productsResult);
+      console.log("fetch products success");
+      if (!isOutdated) {
+        console.log("set products");
+        setIsLoading(false);
+        setProducts(productsResult);
+      }
     });
+    return () => {
+      console.log("clean up");
+      isOutdated = true;
+    };
   }, [selectedCategory]);
   return (
     <>
       <div className="flex gap-2">
+        <button
+          onClick={() => {
+            setSelectedCategory(null);
+          }}
+          className={`px-6 py-1 transition ease-in duration-200 hover:bg-gray-400  hover:text-white border-2 border-gray-900 focus:outline-none`}
+        >
+          ALL
+        </button>
         <button
           onClick={() => {
             setSelectedCategory(Category.MEN);
