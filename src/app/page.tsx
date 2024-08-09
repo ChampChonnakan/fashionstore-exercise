@@ -1,3 +1,4 @@
+"use client";
 import ProductList from "@/components/product/ProductList";
 import { useCart } from "@/contexts/cart";
 import { Product } from "@/models/product";
