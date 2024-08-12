@@ -1,8 +1,10 @@
+"use client";
 import ProductList from "@/components/product/ProductList";
 import { useCart } from "@/contexts/cart";
 import { Product } from "@/models/product";
 import { getProducts } from "@/services/product";
 import { useEffect, useState } from "react";
+import "@/styles/globals.css";
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
