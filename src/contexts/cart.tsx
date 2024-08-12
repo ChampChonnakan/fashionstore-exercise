@@ -18,22 +18,30 @@ export const useCart = () => {
   return useContext(CartContext);
 };
 
+let cartItems: string[] = [];
+
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
-  const [cartItems, setCartItems] = useState<string[]>([]);
   const [cartQuantity, setCartQuantity] = useState(0);
 
   const addProduct = (name: string) => {
     const existItem = cartItems.includes(name);
     if (!existItem) {
-      setCartItems([...cartItems, name]);
+      cartItems.push(name);
       setCartQuantity((cartQuantity) => cartQuantity + 1);
     }
-    console.log(`Cart items are ${cartItems}.`);
-    console.log(`the quantity is ${cartQuantity}.`);
+    console.log(`Cart items are [${cartItems}].`);
     console.log("--------------------------");
   };
 
-  const removeProduct = (name: string) => {};
+  const removeProduct = (name: string) => {
+    const existItem = cartItems.includes(name);
+    if (existItem) {
+      cartItems = cartItems.filter((item) => item !== name);
+      setCartQuantity((cartQuantity) => cartQuantity - 1);
+    }
+    console.log(`Cart items are [${cartItems}].`);
+    console.log("--------------------------");
+  };
 
   return (
     <CartContext.Provider

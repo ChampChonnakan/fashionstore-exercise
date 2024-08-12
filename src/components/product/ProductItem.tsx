@@ -1,15 +1,20 @@
+import { useCart } from "@/contexts/cart";
 import { Product } from "@/models/product";
 import Image from "next/image";
 
 interface ProductItemProps {
   data: Product;
   onAddProduct: (name: string) => void;
+  onRemoveProduct: (name: string) => void;
 }
 
 const ProductItem = ({
   data: { id, name, imageUrl, price },
   onAddProduct,
+  onRemoveProduct,
 }: ProductItemProps) => {
+  const { items } = useCart();
+  const alreadyAdded = items.includes(name);
   return (
     <div className="group relative" data-testid="product-item" role="listitem">
       <div className="pw-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
@@ -45,6 +50,15 @@ const ProductItem = ({
         >
           Add to cart
         </button>
+        {alreadyAdded && (
+          <button
+            data-testid="product-item--remove-from-cart"
+            className="remove-from-cart-button px-6 py-1 transition ease-in duration-200 w-full rounded-full hover:bg-gray-800 hover:text-white border-2 border-gray-900 focus:outline-none"
+            onClick={() => onRemoveProduct(name)}
+          >
+            Remove from cart
+          </button>
+        )}
       </div>
     </div>
   );
