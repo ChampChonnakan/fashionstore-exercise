@@ -1,4 +1,5 @@
 import ProductList from "@/components/product/ProductList";
+import { useTheme } from "@/contexts/theme";
 import { Category, Product } from "@/models/product";
 import { useEffect, useState } from "react";
 
@@ -52,8 +53,11 @@ export default function Home() {
       isStale = true;
     };
   }, []);
+  const { toggleTheme } = useTheme();
+
   return (
     <>
+      <button onClick={toggleTheme}>Change Theme</button>
       {isLoading ? (
         "Loading..."
       ) : (
