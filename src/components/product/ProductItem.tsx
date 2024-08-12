@@ -3,7 +3,7 @@ import Image from "next/image";
 
 interface ProductItemProps {
   data: Product;
-  onAddProduct: (_: string) => void;
+  onAddProduct: (name: string) => void;
 }
 
 const ProductItem = ({
@@ -41,7 +41,7 @@ const ProductItem = ({
         <button
           data-testid="product-item--add-to-cart"
           className="add-to-cart-button px-6 py-1 transition ease-in duration-200 w-full rounded-full hover:bg-gray-800 hover:text-white border-2 border-gray-900 focus:outline-none"
-          onClick={() => onAddProduct(id)}
+          onClick={() => onAddProduct(name)}
         >
           Add to cart
         </button>

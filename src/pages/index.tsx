@@ -1,7 +1,8 @@
 import ProductList from "@/components/product/ProductList";
+import { CartContext, useCart } from "@/contexts/cart";
 import { useTheme } from "@/contexts/theme";
 import { Category, Product } from "@/models/product";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 const fetchProducts = (): Promise<Product[]> => {
   const products = [
@@ -36,9 +37,6 @@ const fetchProducts = (): Promise<Product[]> => {
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const onAddProduct = (productId: string) => {
-    console.log(`add product:${productId} to the cart.`);
-  };
 
   useEffect(() => {
     let isStale = false;
@@ -61,7 +59,7 @@ export default function Home() {
       {isLoading ? (
         "Loading..."
       ) : (
-        <ProductList items={products} onAddProduct={onAddProduct} />
+        <ProductList items={products} />
       )}
     </>
   );
