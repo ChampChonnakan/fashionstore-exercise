@@ -1,4 +1,3 @@
-import { Product } from "@/models/product";
 import { createContext, useContext, useState } from "react";
 
 export type CartContextType = {
@@ -20,35 +19,26 @@ export const useCart = () => {
 };
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
+  const [cartItems, setCartItems] = useState<string[]>([]);
   const [cartQuantity, setCartQuantity] = useState(0);
 
   const addProduct = (name: string) => {
-    setCartQuantity((cartQuantity) => cartQuantity + 1);
-    // const itemExist = items.find((item) => item === name);
-    // if (!itemExist) {
-    //   items = [...items, name];
-    //   quantity++;
-    // } else {
-    //   const newItems = items.filter((item) => item !== name);
-    //   items = newItems;
-    //   quantity--;
-    // }
-    // setCartQuantity(quantity);
-    // console.log(`add product:${name} to the cart.`);
-    // console.log(`the quantity is ${quantity}.`);
-    // console.log("--------------------------");
+    const existItem = cartItems.includes(name);
+    if (!existItem) {
+      setCartItems([...cartItems, name]);
+      setCartQuantity((cartQuantity) => cartQuantity + 1);
+    }
+    console.log(`Cart items are ${cartItems}.`);
+    console.log(`the quantity is ${cartQuantity}.`);
+    console.log("--------------------------");
   };
 
-  const removeProduct = (productId: string) => {
-    // const newItems = items.filter((item) => item !== productId);
-    // items = newItems;
-    // quantity--;
-  };
+  const removeProduct = (name: string) => {};
 
   return (
     <CartContext.Provider
       value={{
-        items: [],
+        items: cartItems,
         quantity: cartQuantity,
         addProduct,
         removeProduct,
